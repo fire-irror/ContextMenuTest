@@ -1,5 +1,6 @@
 package kr.hs.emirim.contextmenutest
 
+import android.content.DialogInterface
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,11 +10,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
     lateinit var linear : LinearLayout
     lateinit var btn1 : Button
     lateinit var btn2 : Button
+    lateinit var btn3 : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,6 +25,24 @@ class MainActivity : AppCompatActivity() {
         linear = findViewById(R.id.linear)
         btn1 = findViewById(R.id.btn1)
         btn2 = findViewById(R.id.btn2)
+        btn3 = findViewById(R.id.btn3)
+        btn3.setOnClickListener{
+            var dlg = AlertDialog.Builder(this@MainActivity)
+            dlg.setTitle("안내문")
+            dlg.setMessage("슈퍼블루문은 17년 뒤에 다시 나옵니다")
+            dlg.setIcon(R.drawable.img)
+            dlg.setPositiveButton("확인",null)
+            dlg.setNegativeButton("취소",null)
+
+            dlg.setPositiveButton("확인") { dialog, which ->
+                linear.setBackgroundColor(Color.MAGENTA)
+            }
+            dlg.setNegativeButton("취소") {dialogInterface, i ->
+                Toast.makeText(this@MainActivity, "취소 버튼이 클릭되었습니다",Toast.LENGTH_LONG).show()
+            }
+            dlg.show()
+        }
+
 
         registerForContextMenu(btn1)
         registerForContextMenu(btn2)
